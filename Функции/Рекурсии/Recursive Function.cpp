@@ -1,19 +1,17 @@
 ﻿#include <iostream>
+#include <cmath>
 using namespace std;
-int H(int x, int n) {
-    if (n == 0) {
-        return 1;
+long double f(long double n, long double i) {
+    if ((n - i) <= 0) {
+        return sqrt(1 + n);
     }
-    if (n == 1) {
-        return 2 * x;
-    }
-    return 2 * x * H(n - 1, x) - 2 * n * H(n - 2, x);
+    return sqrt(1 + i * (f(n, i + 1)));
+
 }
 int main()
 {
-    int x, n, f;
-    cout << "x = "; cin >> x;
+    long double n, s;
     cout << "n = "; cin >> n;
-    f = H(x, n);
-    cout << f;
+    s = f(n, 2);
+    cout << s;
 }
