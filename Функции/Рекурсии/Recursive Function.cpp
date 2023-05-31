@@ -1,17 +1,30 @@
 ﻿#include <iostream>
 #include <cmath>
 using namespace std;
-long double f(long double n, long double i) {
-    if ((n - i) <= 0) {
-        return sqrt(1 + n);
+int out(int n) {
+    for (int i = 0; i < n; i++) {
+        cout << n;
     }
-    return sqrt(1 + i * (f(n, i + 1)));
-
+    cout << "\n";
+    return 1;
+}
+int f(int n, int i, int k) {
+    if (i < n && k == 0) {
+        out(i);
+        return f(n, i + 2, k);
+    }
+    if (i == n) {
+        k++;
+        out(n);
+    }
+    if (i > 0 && k == 1) {
+        out(i);
+        return f(n, i - 2, k);
+    }
 }
 int main()
 {
-    long double n, s;
-    cout << "n = "; cin >> n;
-    s = f(n, 2);
-    cout << s;
+    int n;
+    cin >> n;
+    f(n, 1, 0);
 }
