@@ -14,7 +14,7 @@ int** create(int n, int h) { // функция создания и ввода д
     cout << "\n";
     return m;
 }
-int* create_x(int n) { // функция создания и вывода строки X
+int* create_x(int n) { // функция создания и вывода столбца X
     int* m = new int[n];
     for (int i = 0; i < n; i++) {
         cout << "x [" << i << "] = "; cin >> m[i];
@@ -43,29 +43,28 @@ int output(int** m, int n, int h) {// функция вывода
     cout << "\n";
     return 0;
 }
-int check(int** m, int i, int h) {// функция проверки строки 
-    for (int j = 0; j < h; j++) {
-        if (m[i][j] < 0) {
+int check(int** m, int j, int n) {// функция проверки столбца
+    for (int i = 0; i < n; i++) {
+        if (m[i][j] % 2 == 0) {
             return 1;
         }
     }
     return 0;
 }
-int** res(int** m, int* x, int& n, int h) {// функция решения 
-    for (int i = 0; i < n; i++) {
-        if (check(m, i, h) == 0) {// если строка содержит только положительные элементы 
-            n++;
-            for (int j = n; j > i; j--) {//добавляем строку x после строки i
-                for (int t = 0; t < h; t++) {
-                    m[j][t] = m[j - 1][t];
+int** res(int** m, int* x, int n, int& h) {// функция решения
+    for (int j = 0; j < h; j++) {
+        if (check(m, j, n) == 0) { // если все элементы нечетные 
+            h++;
+            for (int y = 0; y < n; y++) {
+                for (int u = h; u > j; u--) { //сдвигаем элементы вправо
+                    m[y][u] = m[y][u - 1];
                 }
+                m[y][j] = x[y];
 
             }
-            for (int u = 0; u < h; u++) {
-                m[i + 1][u] = x[u];
-            }
-            i += 1;
+            j++;
         }
+
     }
     return m;
 }
@@ -75,7 +74,7 @@ int main()
     int n, h;
     cout << "n = "; cin >> n;
     cout << "h = "; cin >> h;
-    int* x = create_x(h);
+    int* x = create_x(n);
     int** m = create(n, h);
     output(m, n, h);
     m = res(m, x, n, h);
