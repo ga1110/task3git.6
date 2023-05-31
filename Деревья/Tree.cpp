@@ -51,7 +51,7 @@ void inorder(tree* tr) {//симметричный обход
 }
 
 tree* find(tree* tr, int x) {//поиск
-    if (!tr || (x == tr->inf) )//нашли или дошли до конца ветки
+    if (!tr || (x == tr->inf))//нашли или дошли до конца ветки
         return tr;
     if (x < tr->inf)
         return find(tr->left, x);//ищем по левой ветке
@@ -173,10 +173,27 @@ void removeMultiples(tree*& tr, int x) {
         }
     }
 }
+
+int stepen(tree* tr, int x) {
+    tree* r = find(tr, x);
+    if (!r) {
+        return 0; // Узел не найден, его степень равна 0
+    }
+
+    int p = 1; // Начальная степень узла 
+    tree* n = Next(tr, r->inf);
+
+    while (n && n->inf == x) {
+        p++;
+        n = Next(tr, n->inf);
+    }
+
+    return p;
+}
 int main() {
     int n, x, num;
-    cout << "n=";cin >> n;
-    cout << "num=";cin >> num;
+    cout << "n="; cin >> n;
+    cout << "num="; cin >> num;
     tree* tr = NULL;
     for (int i = 0; i < n; i++) {
         cin >> x;
@@ -184,7 +201,6 @@ int main() {
     }
     inorder(tr);
     cout << endl;
-    removeMultiples(tr, num);
-    inorder(tr);
+    cout << stepen(tr, num);
     cout << endl;
 }
