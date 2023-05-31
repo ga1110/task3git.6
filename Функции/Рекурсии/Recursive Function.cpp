@@ -1,25 +1,19 @@
 ﻿#include <iostream>
 using namespace std;
-long double factorial(int n) {
+int H(int x, int n) {
     if (n == 0) {
         return 1;
     }
-    if (n < 0) {
-        return 0;
-    }
     if (n == 1) {
-        return 1;
+        return 2 * x;
     }
-    else {
-        return n*factorial(n - 1);
-    }
+    return 2 * x * H(n - 1, x) - 2 * n * H(n - 2, x);
 }
 int main()
 {
-    int n, f;
+    int x, n, f;
+    cout << "x = "; cin >> x;
     cout << "n = "; cin >> n;
-    f = 1;
-    f = factorial(n);
-    cout<<"\n" << f;
+    f = H(x, n);
+    cout << f;
 }
-
