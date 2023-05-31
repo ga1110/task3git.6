@@ -1,10 +1,9 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 using namespace std;
-//1 1 1 2 2 2 3 3 3 4 4 4 5 5 5
-struct queue {
+
+struct stack {
     int inf;
-    queue* next;
+    stack* next;
 };
 
 void push(stack*& h, int x) {
@@ -38,33 +37,38 @@ void print(stack*& h) {
     cout << endl;
 }
 
-stack* result(stack*& h) {
-    int y;
+stack* result(stack*& h, int num) {
+    bool if_first = true;
     stack* res = NULL;
     stack* h1 = NULL;
-    int x = pop(h);
-    push(res, x);
+    reverse(h);
     while (h) {
-        y = pop(h);
-        if (x != y) {
-            push(res, y);
-            x = y;
+        int x = pop(h);
+        if (if_first && x % 2 != 0) {
+            push(res, x);
+            push(res, num);
+            if_first = false;
         }
+        else {
+            push(res, x);
+        }
+
     }
+    reverse(res);
     return res;
 }
 
 int main()
 {
-    int n;
+    int n, t, x;
     cout << "n = "; cin >> n;
+    cout << "t = "; cin >> t;
     stack* head = NULL;
-    int x;
     for (int i = 0; i < n; i++) {
         cin >> x;
         push(head, x);
     }
-    stack* res = result(head);
+    stack* res = result(head, t);
     print(res);
 }
 
