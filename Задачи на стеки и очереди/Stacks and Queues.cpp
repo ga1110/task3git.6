@@ -1,21 +1,10 @@
 ﻿
 #include <iostream>
 using namespace std;
-
-bool prime_num(int x) {
-    if (x == 0 || x == 1) {
-        return false;
-    }
-    for (int i = 2; i <= sqrt(x); i++) {
-        if (x % i == 0) {
-            return false;
-        }
-    }
-    return true;
-}
-struct stack {
+//1 1 1 2 2 2 3 3 3 4 4 4 5 5 5
+struct queue {
     int inf;
-    stack* next;
+    queue* next;
 };
 
 void push(stack*& h, int x) {
@@ -44,18 +33,22 @@ void reverse(stack*& h) {
 void print(stack*& h) {
     while (h) {
         cout << pop(h) << " ";
-        
+
     }
     cout << endl;
 }
 
 stack* result(stack*& h) {
+    int y;
     stack* res = NULL;
     stack* h1 = NULL;
+    int x = pop(h);
+    push(res, x);
     while (h) {
-        int x = pop(h);
-        if (prime_num(x) == false) {
-            push(res, x);
+        y = pop(h);
+        if (x != y) {
+            push(res, y);
+            x = y;
         }
     }
     return res;
