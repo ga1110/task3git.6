@@ -191,28 +191,27 @@ void print(tree* tr, int k) {
     }
 }
 
-int sum_leaves(tree* tr) {
+void yzel(tree* tr, int k) {
     if (tr == NULL) {
-        return 0;  //пустое дерево, количество листьев равно 0
+        return;  // Базовый случай: пустое дерево
     }
-    else if (tr->left == NULL && tr->right == NULL) {
-        return 1;  //узел является листом, возвращаем 1
+    if (k == 0) {
+        cout << tr->inf << " ";  // Выводим значение узла, если достигли нужного уровня
     }
     else {
-        // Рекурсивно считаем количество листьев в левом и правом поддеревьях
-        int lc = sum_leaves(tr->left);
-        int rc = sum_leaves(tr->right);
-        return lc + rc;
+        // Рекурсивно вызываем функцию для левого и правого поддеревьев с уровнем, уменьшенным на 1
+        yzel(tr->left, k - 1);
+        yzel(tr->right, k - 1);
     }
 }
-
 int main() {
     tree* tr = NULL;
-    int n, x;
+    int n, x, l;
+    cout << "l = "; cin >> l;
     in >> n;
     create(tr, n);
     int k = int(log((float)n) / log((float)2.0));
     print(tr, k);
     cout << endl;
-    cout << sum_leaves(tr);
+    yzel(tr, l);
 }
